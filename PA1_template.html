@@ -191,13 +191,14 @@ active &lt;- read.csv(&quot;activity.csv&quot;)
 
 <pre><code class="r">day &lt;- tapply(active$steps, active$date, sum)
 day_mean &lt;- mean(day, na.rm = TRUE)
+day_meanc &lt;- as.character(sprintf(&quot;%.0f&quot;, day_mean))  #Control how mean prints
 day_median &lt;- median(day, na.rm = TRUE)
 hist(day, main = &quot;Histogram of Total Number of Daily Steps&quot;, xlab = &quot;Total Number of Daily Steps&quot;)
 </code></pre>
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk Calculate Mean Per Day"/> </p>
 
-<p>The mean number of steps per day is 1.0766 &times; 10<sup>4</sup> and the median number of steps per day is 10765.</p>
+<p>The mean number of steps per day is 10766 and the median number of steps per day is 10765.</p>
 
 <h3>What is the average daily activity pattern?</h3>
 
@@ -233,7 +234,9 @@ active_imp$stepsi &lt;- ifelse(is.na(active_imp$steps), active_imp$steps_avg, ac
 
 <pre><code class="r">dayi &lt;- tapply(active_imp$stepsi, active_imp$date, sum)
 dayi_mean &lt;- mean(dayi, na.rm = TRUE)
+dayi_meanc &lt;- as.character(sprintf(&quot;%.0f&quot;, dayi_mean))  #Control how mean prints
 dayi_median &lt;- median(dayi, na.rm = TRUE)
+dayi_medianc &lt;- as.character(sprintf(&quot;%.0f&quot;, dayi_median))  #Control how median prints
 hist(dayi, main = &quot;Histogram of Total Number of Daily Steps - Missing Values Imputed&quot;, 
     xlab = &quot;Total Number of Daily Steps&quot;)
 </code></pre>
@@ -251,7 +254,7 @@ diff_sum &lt;- ifelse(diff_mean &lt; 10 &amp; diff_median &lt; 10, &quot;insigni
         &quot;Significant (&gt;500 steps per day)&quot;))
 </code></pre>
 
-<p>The mean number of steps per day using imputed values is 1.0766 &times; 10<sup>4</sup> and the median number of steps per day is 1.0766 &times; 10<sup>4</sup>. In comparison to the values generated excluding missing values the mean is equal and the median is greater. The change in the mean and median values is insignificant (&lt;10 steps per day).</p>
+<p>The mean number of steps per day using imputed values is 10766 and the median number of steps per day is 10766. In comparison to the values generated excluding missing values the mean is equal and the median is greater. The change in the mean and median values is insignificant (&lt;10 steps per day).</p>
 
 <h3>Are there differences in activity patterns between weekdays and weekends?</h3>
 

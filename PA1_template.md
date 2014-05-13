@@ -14,6 +14,7 @@ active <- read.csv("activity.csv")
 ```r
 day <- tapply(active$steps, active$date, sum)
 day_mean <- mean(day, na.rm = TRUE)
+day_meanc <- as.character(sprintf("%.0f", day_mean))  #Control how mean prints
 day_median <- median(day, na.rm = TRUE)
 hist(day, main = "Histogram of Total Number of Daily Steps", xlab = "Total Number of Daily Steps")
 ```
@@ -21,7 +22,7 @@ hist(day, main = "Histogram of Total Number of Daily Steps", xlab = "Total Numbe
 ![plot of chunk Calculate Mean Per Day](figure/Calculate_Mean_Per_Day.png) 
 
 
-The mean number of steps per day is 1.0766 &times; 10<sup>4</sup> and the median number of steps per day is 10765.
+The mean number of steps per day is 10766 and the median number of steps per day is 10765.
 
 ### What is the average daily activity pattern?
 
@@ -68,7 +69,9 @@ active_imp$stepsi <- ifelse(is.na(active_imp$steps), active_imp$steps_avg, activ
 ```r
 dayi <- tapply(active_imp$stepsi, active_imp$date, sum)
 dayi_mean <- mean(dayi, na.rm = TRUE)
+dayi_meanc <- as.character(sprintf("%.0f", dayi_mean))  #Control how mean prints
 dayi_median <- median(dayi, na.rm = TRUE)
+dayi_medianc <- as.character(sprintf("%.0f", dayi_median))  #Control how median prints
 hist(dayi, main = "Histogram of Total Number of Daily Steps - Missing Values Imputed", 
     xlab = "Total Number of Daily Steps")
 ```
@@ -88,7 +91,7 @@ diff_sum <- ifelse(diff_mean < 10 & diff_median < 10, "insignificant (<10 steps 
 ```
 
 
-The mean number of steps per day using imputed values is 1.0766 &times; 10<sup>4</sup> and the median number of steps per day is 1.0766 &times; 10<sup>4</sup>. In comparison to the values generated excluding missing values the mean is equal and the median is greater. The change in the mean and median values is insignificant (<10 steps per day).
+The mean number of steps per day using imputed values is 10766 and the median number of steps per day is 10766. In comparison to the values generated excluding missing values the mean is equal and the median is greater. The change in the mean and median values is insignificant (<10 steps per day).
 
 ### Are there differences in activity patterns between weekdays and weekends?
 

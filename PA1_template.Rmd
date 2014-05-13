@@ -11,13 +11,14 @@ active <- read.csv("activity.csv")
 ```{r Calculate Mean Per Day}
 day <- tapply(active$steps, active$date, sum)
 day_mean <- mean(day, na.rm=TRUE)
+day_meanc <- as.character(sprintf("%.0f",day_mean)) #Control how mean prints
 day_median <- median(day, na.rm=TRUE)
 hist(day,
      main="Histogram of Total Number of Daily Steps",
      xlab="Total Number of Daily Steps")
 ```
 
-The mean number of steps per day is `r day_mean` and the median number of steps per day is `r day_median`.
+The mean number of steps per day is `r day_meanc` and the median number of steps per day is `r day_median`.
 
 ### What is the average daily activity pattern?
 
@@ -53,7 +54,9 @@ active_imp$stepsi <- ifelse(is.na(active_imp$steps), active_imp$steps_avg, activ
 ```{r Histogram with imputed data}
 dayi <- tapply(active_imp$stepsi, active_imp$date, sum)
 dayi_mean <- mean(dayi, na.rm=TRUE)
+dayi_meanc <- as.character(sprintf("%.0f",dayi_mean)) #Control how mean prints
 dayi_median <- median(dayi, na.rm=TRUE)
+dayi_medianc <- as.character(sprintf("%.0f",dayi_median)) #Control how median prints
 hist(dayi,
      main="Histogram of Total Number of Daily Steps - Missing Values Imputed",
      xlab="Total Number of Daily Steps")
@@ -68,7 +71,7 @@ diff_sum <- ifelse(diff_mean < 10 & diff_median < 10, "insignificant (<10 steps 
                            "Significant (>500 steps per day)"))
 ```
 
-The mean number of steps per day using imputed values is `r dayi_mean` and the median number of steps per day is `r dayi_median`. In comparison to the values generated excluding missing values the mean is `r comp_mean` and the median is `r comp_median`. The change in the mean and median values is `r diff_sum`.
+The mean number of steps per day using imputed values is `r dayi_meanc` and the median number of steps per day is `r dayi_medianc`. In comparison to the values generated excluding missing values the mean is `r comp_mean` and the median is `r comp_median`. The change in the mean and median values is `r diff_sum`.
 
 ### Are there differences in activity patterns between weekdays and weekends?
 ```{r Weekdays}
